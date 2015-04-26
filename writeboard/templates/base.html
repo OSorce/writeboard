@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    {% block link %}
+    <link href="/static/image/mail.png" rel="icon" >
+    <link href="/static/css/animate.min.css" rel="stylesheet">
+    <link href="/static/css/yue.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    {% endblock %}
+    <style type="text/css">
+        {% block style %}
+        {% endblock %}
+    </style>
+    <title>{% block title %} 极简书写板 - 静听你的心声 {% endblock %}</title>
+</head>
+<body>
+
+{% block content %}{% endblock %}
+    
+{% block script %}
+    <script type="application/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="application/javascript" src="/static/js/bootstrap.min.js"></script>
+{% endblock %}
+
+{% block footer %}
+    
+    <footer id="footer" class="footer">
+        <p class="text-center">&copy; Copyright 2015 上海工程 FDZ Rush 算法小组, CC by 4.0.</p>
+    </footer>
+{% endblock %}
+
+</body>
+</html>

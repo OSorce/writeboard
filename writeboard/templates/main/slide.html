@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% import "wtf.html" as wtf %}
+
+{% block link %}
+    <link href="/static/css/yue.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.staticfile.org/reveal.js/2.6.2/css/reveal.min.css" />
+    <link rel="stylesheet" href="http://cdn.staticfile.org/reveal.js/2.6.2/css/theme/simple.css" />
+{% endblock %}
+
+{% block content %}
+<div class="reveal">
+    <div class="slides">
+        {% for text in texts %}
+        <section data-markdown>
+            <script type="text/template">
+                {{ text }}
+            </script>
+        </section>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="http://cdn.staticfile.org/reveal.js/2.6.2/lib/js/head.min.js"></script>
+    <script src="http://cdn.staticfile.org/reveal.js/2.6.2/js/reveal.min.js"></script>
+
+    <script type="application/javascript">
+        $(document).ready( function() {
+        Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+                theme: Reveal.getQueryHash().theme,
+                transition: Reveal.getQueryHash().transition || 'default',
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'http://cdn.staticfile.org/reveal.js/2.6.2/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'http://cdn.staticfile.org/reveal.js/2.6.2/plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+                    { src: 'http://cdn.staticfile.org/reveal.js/2.6.2/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+                    { src: 'http://cdn.staticfile.org/reveal.js/2.6.2/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                ]
+            });
+        });
+    </script>
+{% endblock %}

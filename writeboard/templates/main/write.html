@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% import "wtf.html" as wtf %}
+
+{% block link %}
+    <link href="/static/css/yue.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/editor.css" />
+    <link href="/static/css/style.css" rel="stylesheet">
+{% endblock %}
+
+{% block style %}
+body {
+    padding-top: 0;
+    background-color: #fefefe;
+}
+{% endblock %}
+
+{% block content %}
+<nav class="nav" id="nav">
+    <ul>
+        <li>
+            <a id="sync">同步</a>
+        </li>
+        {% if form.key.data %}
+        <li>
+            <a href="{{url_for('.posts', key=form.key.data)}}" target="_blank">发布</a>
+        </li>
+        <li>
+            <a href="{{url_for('.slide', key=form.key.data)}}" target="_blank">幻灯片</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+<div class="yue">
+    <h1>极简书写板</h1>
+    <form onsubmit="return false">
+        {{ form.csrf_token }}
+        {{ form.key }}
+        {{ form.text }}
+    </form>
+</div>
+
+<div id="flash">
+{% for message in get_flashed_messages() %}
+    <p>{{ message }}</p>
+{% endfor %}
+</div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/editor.js"></script>
+    <script type="text/javascript" src="/static/js/marked.js"></script>
+
+    <script type="application/javascript">
+        $(document).ready( function() {
+            var base_url = "{{url_for('.write')}}";
+            var tid = window.location.href.replace(RegExp('.*/write/?'), '');
+            
+            var editor = new Editor();
+            editor.render();
+    
+            var formd = function() {
+                return {
+                    csrf_token: $('#csrf_token').val(),
+                    text: editor.codemirror.getValue()
+                };
+            }
+            
+            var current = function() {
+                var tid = window.location.href.replace(RegExp('.*/write/?'), '');
+                
+                if (tid)
+                    var url = base_url + '/' + tid;
+                else
+                    var url = base_url;
+                
+                return {
+                    url: url,
+                    tid: tid
+                };
+            }
+            
+            var refresh_state = function(tid) {
+                var state = ({
+                    url: '/write/'+tid,
+                    title: document.title
+                });
+                
+                window.history.pushState(state, state.title, state.url);
+            }
+            
+            var save_text = function() {
+                if (current().tid) {
+                    localStorage.setItem(current().tid, formd().text);   
+                } else {
+                    localStorage.setItem('default', formd().text);
+                }
+                
+                console.log('Save action has been trigger.');
+            }
+            
+            var get_text = function() {
+                if (current().tid) {
+                    return localStorage.getItem(current().tid);
+                } else {
+                    return localStorage.getItem('default');
+                }
+            }
+            
+            editor.codemirror.setValue(get_text());
+            setInterval(save_text, 10000);
+            
+            $('#sync').click( function(evt) {
+                evt.preventDefault();
+                var mask = '<div class="mask"></div>';
+                $('body').append(mask);
+                
+                $.post(current().url, formd(), function(data) {
+                    console.log(data);
+                    if (data.status == 'ok') {
+                        $('#flash').html("<p>刷新成功，分享key: "+data.key+"</p>");
+                        
+                        if (!(current().tid)) {
+                            $('nav ul').append('<li><a href="/posts/'+data.key+'" target="_blank" id="post-url">发布</a></li>');  
+                            $('nav ul').append('<li><a href="/slide/'+data.key+'" target="_blank" id="slide-url">幻灯片</a></li>');
+                        }
+                        
+                        refresh_state(data.key);
+                        save_text();
+                        $('.mask').remove();
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block footer %}
+<footer class="footer">
+    <div class="well well-lg">
+        <p>&copy; Powerd by lepture 
+            <a href="http://lab.lepture.com/editor" target="_blank">
+                editor
+            </a>
+        </p>
+    </div>
+</footer>
+{% endblock %}

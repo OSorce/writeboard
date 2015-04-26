@@ -1,0 +1,194 @@
+/* Custom stylesheet
+ * Author: Yufei Li
+ * Date: 2015-03-10 08:17:36
+ * 
+ */
+
+.delay-05s { animation-delay: 0.5s; -webkit-animation-delay: 0.5s; }
+.delay-1s { animation-delay: 1s; -webkit-animation-delay: 1s; }
+.delay-1-5s { animation-delay: 1.5s; -webkit-animation-delay: 1.5s; }
+.delay-2s { animation-delay: 2s; -webkit-animation-delay: 2s; }
+.delay-2-5s { animation-delay: 2.5s; -webkit-animation-delay: 2.5s; }
+.delay-3s { animation-delay: 3s; -webkit-animation-delay: 3s; }
+.delay-3-5s { animation-delay: 3.5s; -webkit-animation-delay: 3.5s; }
+.delay-4s { animation-delay: 4s; -webkit-animation-delay: 4s; }
+
+.banner {
+    background-image: url("/static/image/plant.png");
+    position: relative;
+    display: inline-block;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    min-height: 500px;
+    height: 100vh;
+    color: #fff;
+    text-align: center;
+    padding-top: 200px;
+}
+
+.inner {
+    padding-top: 60px;
+}
+
+.banner .banner-btn {
+    margin-top: 60px;
+}
+
+.page {
+    padding-top: 15vh;
+    padding-bottom: 15vh;
+    height: 100vh;
+}
+
+.feature {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.img-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#nav {
+    position: fixed;
+    width: 16%;
+    height: 100vh;
+    left: 0;
+    background: #444 url("http://thxminds.qiniudn.com/image/debut_dark.png") repeat;
+}   
+
+#nav ul {
+    position: relative;
+    display: block;
+    width: 100%;
+    list-style: none;
+}
+
+#nav li {
+    position: relative;
+    left: 0;
+    width: 100%;
+    display: block;
+}
+
+#nav a {
+    color: #aaa;
+    font-weight: 700;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: background .3s ease;
+    -moz-transition: background .3s ease;
+    transition: background .3s ease;
+    text-shadow: 0 -1px rgba(0, 0, 0, .5);
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+    border-top: 1px solid rgba(255, 255, 255, .1);
+    display: block;
+    padding: .6em 2em;
+    width: 80%;
+    text-decoration: none;
+}
+
+#nav button {
+    color: #aaa;
+    font-weight: 700;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: background .3s ease;
+    -moz-transition: background .3s ease;
+    transition: background .3s ease;
+    text-shadow: 0 -1px rgba(0, 0, 0, .5);
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+    border-top: 1px solid rgba(255, 255, 255, .1);
+    display: block;
+    padding: .6em 2em;
+    width: 100%
+}
+
+#nav a:hover {
+    background: rgba(255, 255, 255, .1)
+}
+
+#nav .active a {
+    color: #fff;
+    background: rgba(0, 0, 0, .3)
+}
+
+#nav li:first-child a {
+    border-top: 0
+}
+
+#nav li:last-child a {
+    border-bottom: 0
+}
+
+.yue p {
+    text-indent: 2em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.yue li {
+    margin-left: 2em;
+}
+
+a {
+    color: black;
+}
+
+.toc-content .toc-h2 {
+    margin-left: 25px;
+}
+
+.toc-content .toc-h3 {
+    margin-left: 50px;
+}
+
+.toc-content .toc-active {
+    font-style: oblique;
+}
+
+@media (min-width: 764px) {
+    .toc {
+        position: fixed;
+        left: 2vw;
+        top: 10vh;
+    }
+}
+
+@media (max-width: 764px) {
+    .toc {
+        margin-top: 10vh;
+        padding: 25px;
+        border-radius: 25px;
+        color: aliceblue;
+        background-color: #303030;
+        position: relative;
+    }
+    
+    .toc .toc-title {
+        font-size: 1.6em;
+    }
+    
+    .toc .toc-content a {
+        font-size: 1.2em;
+        color: aliceblue;
+    }
+}
+
+
+.mask {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(224, 244, 244, 0.5);
+    z-index: 10000px;
+    left: 0;
+    top: 0;
+}

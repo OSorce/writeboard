@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% import "wtf.html" as wtf %}
+
+{% block link %}
+    <link href="/static/css/yue.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+{% endblock %}
+
+{% block style %}
+body {
+    padding-top: 0;
+    background-color: #fefefe;
+}
+{% endblock %}
+
+{% block content %}
+<div class="yue">
+    <h1>极简书写板</h1>
+</div>
+{% endblock %}
+
+{% block script %}
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/animated.js"></script>
+
+    <script type="application/javascript">
+        $(document).ready( function() {
+            
+        });
+    </script>
+{% endblock %}
+
+{% block footer %}
+    <footer class="footer">
+        <p>&copy; 2015 Yufei Li, Aisling Bai</p>
+    </footer>
+{% endblock %}
