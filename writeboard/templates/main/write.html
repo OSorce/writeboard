@@ -15,6 +15,23 @@ body {
 {% endblock %}
 
 {% block content %}
+<div class="write">
+    <div class="yue">
+        <h1>极简书写板</h1>
+        <form onsubmit="return false">
+            {{ form.csrf_token }}
+            {{ form.key }}
+            {{ form.text }}
+        </form>
+    </div>
+</div>
+
+<div id="flash">
+{% for message in get_flashed_messages() %}
+    <p>{{ message }}</p>
+{% endfor %}
+</div>
+
 <nav class="nav" id="nav">
     <ul>
         <li>
@@ -30,20 +47,6 @@ body {
         {% endif %}
     </ul>
 </nav>
-<div class="yue">
-    <h1>极简书写板</h1>
-    <form onsubmit="return false">
-        {{ form.csrf_token }}
-        {{ form.key }}
-        {{ form.text }}
-    </form>
-</div>
-
-<div id="flash">
-{% for message in get_flashed_messages() %}
-    <p>{{ message }}</p>
-{% endfor %}
-</div>
 
 {% endblock %}
 

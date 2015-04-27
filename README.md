@@ -5,7 +5,7 @@
 ## 项目地址
 
 * [Github][]: http://github.com/yufeiminds/writeboard
-* [Coding][]: http://writeboard.coding.com
+* [Coding][]: http://wb.thxminds.com/write
 
 ---
 

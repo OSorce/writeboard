@@ -2,12 +2,35 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="HTML5 WriteBoard 写字板 Markdown" />
+    <meta name="description" content="简单易使用的Markdown书写板，快速纪录并分享你的想法" />
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?bfbc42d04a231d6269ccb1c10765d84e";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+    <link href="/static/image/logo.png" rel="icon" >
+
     {% block link %}
-    <link href="/static/image/mail.png" rel="icon" >
     <link href="/static/css/animate.min.css" rel="stylesheet">
     <link href="/static/css/yue.css" rel="stylesheet">
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/css/style.css" rel="stylesheet">
+    
+   <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
     {% endblock %}
     <style type="text/css">
         {% block style %}
