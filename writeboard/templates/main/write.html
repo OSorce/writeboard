@@ -108,7 +108,10 @@ body {
                 }
             }
             
-            editor.codemirror.setValue(get_text());
+            if (get_text()) {
+                editor.codemirror.setValue(get_text());
+            }
+
             setInterval(save_text, 10000);
             
             $('#sync').click( function(evt) {
