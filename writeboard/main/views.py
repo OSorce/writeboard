@@ -57,16 +57,19 @@ def posts(key=None):
 @main.route('/slide', methods=['GET', 'POST'])
 @main.route('/slide/<key>', methods=['GET', 'POST'])
 def slide(key=None):
+    slide = {'key': key}
     form = WritesForm()
     if request.method == 'GET':
+        if request.args.get('remote'):
+            slide['master'] = True
         if key:
             content = CacheText.query.get(key)
             if content:
                 pages = content.text.split('\n---\n')
-                return render_template('main/slide.html', texts=pages)
+                return render_template('main/slide.html', texts=pages, slide=slide)
     else:
         text = request.form.get('text')
         pages = text.split('\n---\n')
         if text:
-            return render_template('main/slide.html', texts=pages)
+            return render_template('main/slide.html', texts=pages, slide=slide)
     return redirect(url_for('write'))

@@ -25,16 +25,24 @@
     <script src="/static/js/jquery.min.js"></script>
     <script src="http://cdn.staticfile.org/reveal.js/2.6.2/lib/js/head.min.js"></script>
     <script src="http://cdn.staticfile.org/reveal.js/2.6.2/js/reveal.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
 
     <script type="application/javascript">
         $(document).ready( function() {
-        Reveal.initialize({
+            var multiplex = {
+                secret: '{{slide.key}}',
+                id: '{{slide.key}}',
+                url: 'http://127.0.0.1:5001',
+            };
+
+            Reveal.initialize({
                 controls: true,
                 progress: true,
                 history: true,
                 center: true,
                 theme: Reveal.getQueryHash().theme,
                 transition: Reveal.getQueryHash().transition || 'default',
+
                 // Optional libraries used to extend on reveal.js
                 dependencies: [
                     { src: 'http://cdn.staticfile.org/reveal.js/2.6.2/lib/js/classList.js', condition: function() { return !document.body.classList; } },
@@ -43,6 +51,64 @@
                     { src: 'http://cdn.staticfile.org/reveal.js/2.6.2/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
                 ]
             });
+
+            namespace = '/remote';
+            var socket = io.connect(multiplex.url + namespace);
+            socket.on('connect', function() {
+                console.log("Connected.");
+
+            });
+
+            socket.on('confirm', function(msg) {
+                console.log(msg);
+            });
+
+            {% if slide.master %}
+            var notify = function( slideElement, indexh, indexv, origin ) {
+                if( typeof origin === 'undefined' && origin !== 'remote' ) {
+                    var nextindexh;
+                    var nextindexv;
+
+                    var fragmentindex = Reveal.getIndices().f;
+                    if (typeof fragmentindex == 'undefined') {
+                        fragmentindex = 0;
+                    }
+
+                    if (slideElement.nextElementSibling && slideElement.parentNode.nodeName == 'SECTION') {
+                        nextindexh = indexh;
+                        nextindexv = indexv + 1;
+                    } else {
+                        nextindexh = indexh + 1;
+                        nextindexv = 0;
+                    }
+
+                    var slideData = {
+                        indexh : indexh,
+                        indexv : indexv,
+                        indexf : fragmentindex,
+                        nextindexh : nextindexh,
+                        nextindexv : nextindexv,
+                        secret: multiplex.secret,
+                        channel : multiplex.id
+                    };
+
+                    console.log(slideData);
+
+                    socket.emit('publish', slideData);
+                }
+            }
+
+            Reveal.addEventListener( 'slidechanged', function( event ) {
+                notify( event.currentSlide, event.indexh, event.indexv, event.origin );
+            } );
+            {% else %}
+            socket.emit('subscribe', {channel: multiplex.id});
+
+            socket.on('slidechanged', function(msg) {
+                console.log(msg);
+                Reveal.slide(msg.indexh, msg.indexv, msg.indexf, 'remote');
+            });
+            {% endif %}
         });
     </script>
 {% endblock %}

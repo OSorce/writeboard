@@ -116,6 +116,7 @@
     .write {
         margin-left: 16%;
         width: 84%;
+        
     }
 }
 
@@ -129,9 +130,6 @@
         padding: 10px;
     }  
 }
-
-
-
 
 .yue p {
     text-indent: 2em;
